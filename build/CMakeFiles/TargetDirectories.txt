@@ -1,0 +1,3 @@
+/home/p/Git/me-graphics/build/CMakeFiles/me-graphics.dir
+/home/p/Git/me-graphics/build/CMakeFiles/edit_cache.dir
+/home/p/Git/me-graphics/build/CMakeFiles/rebuild_cache.dir
