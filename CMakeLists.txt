@@ -12,7 +12,7 @@ find_package(glfw3 REQUIRED)
 include_directories(include)
 
 # Add executable
-add_executable(me-graphics src/main.cpp src/glad.c)
+add_executable(me-graphics src/main.cpp src/glad.c src/stb_image.cpp)
 
 find_library(OPENGL_LIB NAMES GL PATHS /usr/lib /usr/lib64 /usr/local/lib)
 # Link GLFW and OpenGL
