@@ -13,9 +13,10 @@ find_package(assimp REQUIRED)
 
 # Include directories
 include_directories(include)
+include_directories(include/core)
 
 # Add executable
-add_executable(me-graphics src/main.cpp src/glad.c src/stb_image.cpp)
+add_executable(me-graphics src/main.cpp src/core/Camera.cpp src/core/Mesh.cpp src/core/Model.cpp src/core/Shader.cpp src/external/glad.c src/external/stb_image.cpp)
 
 find_library(OPENGL_LIB NAMES GL PATHS /usr/lib /usr/lib64 /usr/local/lib)
 # Link GLFW and OpenGL
