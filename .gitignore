@@ -70,5 +70,9 @@ _deps
 # Local History for Visual Studio Code
 .history/
 
+# Ensure everything in the resources folder is committed
+!resources/
+!resources/**
+
 # End of https://mrkandreev.name/snippets/gitignore-generator/#C++,Linux,CMake,VisualStudioCode
 
