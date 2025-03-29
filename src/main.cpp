@@ -61,6 +61,10 @@ int main()
     stbi_set_flip_vertically_on_load(true);
 
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_STENCIL_TEST);  
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK); 
 
     Shader ourShader("../shaders/color_vertex_shader.glsl", "../shaders/color_fragment_shader.glsl");
 
@@ -79,7 +83,7 @@ int main()
         processInput(window);
 
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); 
 
         ourShader.use();
 

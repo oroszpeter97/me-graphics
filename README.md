@@ -23,7 +23,7 @@ Repository for Computer Graphics course.
 | Basic Materials          | ❌     |
 | Shadows                  | ❌     |
 | Basic Post Processing    | ❌     |
-| Face Culling             | ❌     |
+| Face Culling             | ✅     |
 | Cube Maps                | ❌     |
 | Instancing               | ❌     |
 | Advanced Post Processing | ❌     |
