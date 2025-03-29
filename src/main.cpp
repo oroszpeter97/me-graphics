@@ -87,6 +87,11 @@ int main()
 
         ourShader.use();
 
+        // Set directional light properties
+        ourShader.setVec3("lightDir", -0.2f, -1.0f, -0.3f);
+        ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+        ourShader.setVec3("viewPos", camera.Position);
+
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
         ourShader.setMat4("projection", projection);

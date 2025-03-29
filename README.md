@@ -20,6 +20,7 @@ Repository for Computer Graphics course.
 | Mesh Loading             | ✅     |
 | Model Loading            | ✅     |
 | Simple Camera Movement   | ✅     |
+| Basic Lighting           | ✅     |
 | Basic Materials          | ❌     |
 | Shadows                  | ❌     |
 | Basic Post Processing    | ❌     |
