@@ -17,9 +17,11 @@ find_package(OpenGL REQUIRED)
 include_directories(include)
 include_directories(include/core)
 include_directories(external/include)
+include_directories(include/prefabs)
+include_directories(include/scenes)
 
 # Add executable
-add_executable(me-graphics src/main.cpp src/core/Camera.cpp src/core/Mesh.cpp src/core/Model.cpp src/core/Shader.cpp external/glad.c external/stb_image.cpp)
+add_executable(me-graphics src/main.cpp src/core/Camera.cpp src/core/Mesh.cpp src/core/Model.cpp src/core/Shader.cpp src/core/GameObject.cpp src/core/Scene.cpp src/core/LightManager.cpp src/prefabs/Backpack.cpp src/scenes/TestScene.cpp external/glad.c external/stb_image.cpp)
 
 # Link GLFW, OpenGL, and Assimp
 target_link_libraries(me-graphics glfw assimp OpenGL::GL)
