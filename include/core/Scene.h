@@ -10,13 +10,19 @@ public:
     Scene(LightManager* lightManager);
     virtual ~Scene() = default;
 
-    virtual void Initialize() = 0;
-    virtual void Update(float deltaTime) = 0;
-    virtual void Render() = 0;
+    void Initialize(); 
+    void Update(float deltaTime); 
+    void Render(); 
 
 protected:
     std::vector<GameObject*> gameObjects;
     LightManager* lightManager;
+
+    virtual void OnInitialize() = 0; 
+    virtual void OnUpdate(float deltaTime) = 0; 
+    virtual void OnRender() = 0; 
+
+    void AddGameObject(GameObject* gameObject); // Helper method for internal logic
 };
 
 #endif

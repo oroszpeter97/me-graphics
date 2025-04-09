@@ -8,9 +8,9 @@ public:
     TestScene(LightManager* lightManager) : Scene(lightManager) {};
     ~TestScene() = default;
 
-    void Initialize() override;
-    void Update(float deltaTime) override;
-    void Render() override;
+    void OnInitialize() override;
+    void OnUpdate(float deltaTime) override;
+    void OnRender() override;
 };
 
 #endif
