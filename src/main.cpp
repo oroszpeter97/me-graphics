@@ -8,6 +8,10 @@
 #include <Shader.h>
 #include <Camera.h>
 #include <Model.h>
+#include <Scene.h>
+#include <LightManager.h>
+
+#include <scenes/TestScene.h>
 
 #include <iostream>
 
@@ -27,16 +31,16 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+Scene* currentScene = nullptr;
+LightManager* lightManager = new LightManager();
+
 int main()
 {
+    // Initialize GLFW and create a window
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
 
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
@@ -60,19 +64,15 @@ int main()
 
     stbi_set_flip_vertically_on_load(true);
 
+    // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glEnable(GL_STENCIL_TEST);  
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK); 
 
-    Shader ourShader("../shaders/color_vertex_shader.glsl", "../shaders/color_fragment_shader.glsl");
-
-    Model ourModel("../resources/models/backpack/backpack.obj");
-
-    
-    // draw in wireframe
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    currentScene = new TestScene(lightManager);
+    currentScene->Initialize();
 
     while (!glfwWindowShouldClose(window))
     {
@@ -82,27 +82,17 @@ int main()
 
         processInput(window);
 
+        // Clear screen
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); 
 
-        ourShader.use();
+        lightManager->SetProjection(glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f));
+        lightManager->SetView(camera.GetViewMatrix());
+        lightManager->SetCameraPosition(camera.Position);
 
-        // Set directional light properties
-        ourShader.setVec3("lightDir", -0.2f, -1.0f, -0.3f);
-        ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-        ourShader.setVec3("viewPos", camera.Position);
-
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
-        ourShader.setMat4("projection", projection);
-        ourShader.setMat4("view", view);
-
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); 
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	
-        ourShader.setMat4("model", model);
-        ourModel.Draw(ourShader);
-
+        currentScene->Update(deltaTime);
+        currentScene->Render();
+        
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
